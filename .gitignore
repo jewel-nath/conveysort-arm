@@ -3,3 +3,7 @@
 /install 
 /.vscode
 .vscode
+
+# Local secrets, such as the ESP32 access point password
+secrets.h
+__pycache__/

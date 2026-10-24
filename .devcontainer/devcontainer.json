@@ -1,5 +1,9 @@
+// Based on the ROS 2 documentation's guide "Setup ROS 2 with VSCode and Docker"
+// (https://docs.ros.org/en/humble/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html),
+// licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+
 {
-    "name": "armBot Container",
+    "name": "ConveySort-Arm",
     "privileged": true,
     "remoteUser": "jewel",
     "build": {
@@ -8,8 +12,8 @@
             "USERNAME": "jewel"
         }
     },
-    "workspaceFolder": "/home/armBot",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/home/armBot,type=bind",
+    "workspaceFolder": "/home/conveysort-arm",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/conveysort-arm,type=bind",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -37,5 +41,5 @@
         "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
         "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
     ],
-    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R $(whoami) /home/armBot/"
+    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y && sudo chown -R $(whoami) /home/conveysort-arm/"
 }

@@ -1,5 +1,10 @@
+# Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+# Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+# Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+# and in some files the arm's joints and servos.
+
 cmake_minimum_required(VERSION 3.5)
-project(armbot_controller)
+project(conveysort_controller)
 
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
@@ -17,7 +22,7 @@ add_executable(slider_control src/slider_control.cpp)
 ament_target_dependencies(slider_control rclcpp trajectory_msgs sensor_msgs)
 
 add_library(${PROJECT_NAME} SHARED 
-  src/armbot_interface.cpp
+  src/conveysort_interface.cpp
 )
 target_include_directories(${PROJECT_NAME} PRIVATE 
   include
@@ -32,7 +37,7 @@ ament_target_dependencies(${PROJECT_NAME}
   rclcpp_lifecycle
 )
 
-pluginlib_export_plugin_description_file(hardware_interface armbot_controller.xml)
+pluginlib_export_plugin_description_file(hardware_interface conveysort_controller.xml)
 
 ament_python_install_package(${PROJECT_NAME})
 

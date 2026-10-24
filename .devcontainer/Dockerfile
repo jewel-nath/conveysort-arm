@@ -1,3 +1,7 @@
+# Based on the ROS 2 documentation's guide "Setup ROS 2 with VSCode and Docker"
+# (https://docs.ros.org/en/humble/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html),
+# licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+
 # Use the ROS 2 Humble desktop image as the base
 FROM osrf/ros:humble-desktop
 
@@ -52,11 +56,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Create the workspace directory
-RUN mkdir -p /home/armBot/src
-WORKDIR /home/armBot
+RUN mkdir -p /home/conveysort-arm/src
+WORKDIR /home/conveysort-arm
 
 # Copy project files into the container
-COPY src/ /home/armBot/src/
+COPY src/ /home/conveysort-arm/src/
 
 # Install ROS dependencies using rosdep
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && rosdep install -r --from-paths . --ignore-src --rosdistro humble -y"

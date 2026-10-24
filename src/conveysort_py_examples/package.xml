@@ -1,15 +1,21 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<!--
+  Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+  Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+  Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+  and in some files the arm's joints and servos.
+-->
 <package format="3">
-  <name>armbot_py_examples</name>
+  <name>conveysort_py_examples</name>
   <version>0.0.0</version>
   <description>ROS 2 Code Examples</description>
-  <maintainer email="jewelnath.me@gmail.com">Jewel Nath</maintainer>
-  <license>Apache 2.0</license>
+  <maintainer email="58494211+jewel-nath@users.noreply.github.com">Jewel Nath</maintainer>
+  <license>Apache-2.0</license>
 
   <exec_depend>rclpy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
-  <exec_depend>armbot_msgs</exec_depend>
+  <exec_depend>conveysort_msgs</exec_depend>
 
   <exec_depend>moveit_py</exec_depend>
 

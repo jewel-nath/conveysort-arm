@@ -1,7 +1,12 @@
+// Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+// Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+// Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+// and in some files the arm's joints and servos.
+
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp_action/rclcpp_action.hpp>
 #include <rclcpp_components/register_node_macro.hpp>
-#include "armbot_msgs/action/armbot_task.hpp"
+#include "conveysort_msgs/action/conveysort_task.hpp"
 #include <moveit/move_group_interface/move_group_interface.h>
 
 #include <memory>
@@ -9,7 +14,7 @@
 
 using namespace std::placeholders;
 
-namespace armbot_remote
+namespace conveysort_remote
 {
 class TaskServer : public rclcpp::Node
 {
@@ -18,18 +23,18 @@ public:
     : Node("task_server", options)
   {
     RCLCPP_INFO(get_logger(), "Starting the Server");
-    action_server_ = rclcpp_action::create_server<armbot_msgs::action::ArmbotTask>(
+    action_server_ = rclcpp_action::create_server<conveysort_msgs::action::ConveysortTask>(
         this, "task_server", std::bind(&TaskServer::goalCallback, this, _1, _2),
         std::bind(&TaskServer::cancelCallback, this, _1),
         std::bind(&TaskServer::acceptedCallback, this, _1));
   }
 
 private:
-  rclcpp_action::Server<armbot_msgs::action::ArmbotTask>::SharedPtr action_server_;
+  rclcpp_action::Server<conveysort_msgs::action::ConveysortTask>::SharedPtr action_server_;
 
   rclcpp_action::GoalResponse goalCallback(
       const rclcpp_action::GoalUUID& uuid,
-      std::shared_ptr<const armbot_msgs::action::ArmbotTask::Goal> goal)
+      std::shared_ptr<const conveysort_msgs::action::ConveysortTask::Goal> goal)
   {
     RCLCPP_INFO(get_logger(), "Received goal request with id %d", goal->task_number);
     (void)uuid;
@@ -37,7 +42,7 @@ private:
   }
 
   rclcpp_action::CancelResponse cancelCallback(
-      const std::shared_ptr<rclcpp_action::ServerGoalHandle<armbot_msgs::action::ArmbotTask>> goal_handle)
+      const std::shared_ptr<rclcpp_action::ServerGoalHandle<conveysort_msgs::action::ConveysortTask>> goal_handle)
   {
     (void)goal_handle;
     RCLCPP_INFO(get_logger(), "Received request to cancel goal");
@@ -49,16 +54,16 @@ private:
   }
 
   void acceptedCallback(
-      const std::shared_ptr<rclcpp_action::ServerGoalHandle<armbot_msgs::action::ArmbotTask>> goal_handle)
+      const std::shared_ptr<rclcpp_action::ServerGoalHandle<conveysort_msgs::action::ConveysortTask>> goal_handle)
   {
     // this needs to return quickly to avoid blocking the executor, so spin up a new thread
     std::thread{ std::bind(&TaskServer::execute, this, _1), goal_handle }.detach();
   }
 
-  void execute(const std::shared_ptr<rclcpp_action::ServerGoalHandle<armbot_msgs::action::ArmbotTask>> goal_handle)
+  void execute(const std::shared_ptr<rclcpp_action::ServerGoalHandle<conveysort_msgs::action::ConveysortTask>> goal_handle)
   {
     RCLCPP_INFO(get_logger(), "Executing goal");
-    auto result = std::make_shared<armbot_msgs::action::ArmbotTask::Result>();
+    auto result = std::make_shared<conveysort_msgs::action::ConveysortTask::Result>();
 
     // MoveIt 2 Interface
     auto arm_move_group = moveit::planning_interface::MoveGroupInterface(shared_from_this(), "arm");
@@ -119,6 +124,6 @@ private:
     RCLCPP_INFO(get_logger(), "Goal succeeded");
   }
 };
-}  // namespace armbot_remote
+}  // namespace conveysort_remote
 
-RCLCPP_COMPONENTS_REGISTER_NODE(armbot_remote::TaskServer)
+RCLCPP_COMPONENTS_REGISTER_NODE(conveysort_remote::TaskServer)

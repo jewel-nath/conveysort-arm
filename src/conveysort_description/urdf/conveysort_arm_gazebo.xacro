@@ -1,12 +1,18 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="armbot">
+<!--
+  Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+  Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+  Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+  and in some files the arm's joints and servos.
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="conveysort_arm">
 
     <!-- Gazebo ros2_control plugin -->
     <gazebo>
       <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
         <robot_param>robot_description</robot_param>
         <robot_param_node>robot_state_publisher</robot_param_node>
-        <parameters>$(find armbot_controller)/config/armbot_controllers.yaml</parameters>
+        <parameters>$(find conveysort_controller)/config/conveysort_arm_controllers.yaml</parameters>
       </plugin>
     </gazebo>
 

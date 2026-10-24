@@ -1,7 +1,12 @@
+// Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+// Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+// Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+// and in some files the arm's joints and servos.
+
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp_action/rclcpp_action.hpp>
 #include <rclcpp_components/register_node_macro.hpp>
-#include "armbot_msgs/action/fibonacci.hpp"
+#include "conveysort_msgs/action/fibonacci.hpp"
 
 #include <memory>
 #include <thread>
@@ -9,7 +14,7 @@
 
 using namespace std::placeholders;
 
-namespace armbot_cpp_examples
+namespace conveysort_cpp_examples
 {
 class SimpleActionServer : public rclcpp::Node
 {
@@ -18,18 +23,18 @@ public:
     : Node("simple_action_server", options)
   {
     RCLCPP_INFO(get_logger(), "Starting the Server");
-    action_server_ = rclcpp_action::create_server<armbot_msgs::action::Fibonacci>(
+    action_server_ = rclcpp_action::create_server<conveysort_msgs::action::Fibonacci>(
         this, "fibonacci", std::bind(&SimpleActionServer::goalCallback, this, _1, _2),
         std::bind(&SimpleActionServer::cancelCallback, this, _1),
         std::bind(&SimpleActionServer::acceptedCallback, this, _1));
   }
 
 private:
-  rclcpp_action::Server<armbot_msgs::action::Fibonacci>::SharedPtr action_server_;
+  rclcpp_action::Server<conveysort_msgs::action::Fibonacci>::SharedPtr action_server_;
 
   rclcpp_action::GoalResponse goalCallback(
       const rclcpp_action::GoalUUID& uuid,
-      std::shared_ptr<const armbot_msgs::action::Fibonacci::Goal> goal)
+      std::shared_ptr<const conveysort_msgs::action::Fibonacci::Goal> goal)
   {
     RCLCPP_INFO(get_logger(), "Received goal request with order %d", goal->order);
     (void)uuid;
@@ -37,7 +42,7 @@ private:
   }
 
   rclcpp_action::CancelResponse cancelCallback(
-      const std::shared_ptr<rclcpp_action::ServerGoalHandle<armbot_msgs::action::Fibonacci>> goal_handle)
+      const std::shared_ptr<rclcpp_action::ServerGoalHandle<conveysort_msgs::action::Fibonacci>> goal_handle)
   {
     RCLCPP_INFO(get_logger(), "Received request to cancel goal");
     (void)goal_handle;
@@ -45,22 +50,22 @@ private:
   }
 
   void acceptedCallback(
-      const std::shared_ptr<rclcpp_action::ServerGoalHandle<armbot_msgs::action::Fibonacci>> goal_handle)
+      const std::shared_ptr<rclcpp_action::ServerGoalHandle<conveysort_msgs::action::Fibonacci>> goal_handle)
   {
     // this needs to return quickly to avoid blocking the executor, so spin up a new thread
     std::thread{ std::bind(&SimpleActionServer::execute, this, _1), goal_handle }.detach();
   }
 
-  void execute(const std::shared_ptr<rclcpp_action::ServerGoalHandle<armbot_msgs::action::Fibonacci>> goal_handle)
+  void execute(const std::shared_ptr<rclcpp_action::ServerGoalHandle<conveysort_msgs::action::Fibonacci>> goal_handle)
   {
     RCLCPP_INFO(get_logger(), "Executing goal");
     rclcpp::Rate loop_rate(1);
     const auto goal = goal_handle->get_goal();
-    auto feedback = std::make_shared<armbot_msgs::action::Fibonacci::Feedback>();
+    auto feedback = std::make_shared<conveysort_msgs::action::Fibonacci::Feedback>();
     auto& sequence = feedback->partial_sequence;
     sequence.push_back(0);
     sequence.push_back(1);
-    auto result = std::make_shared<armbot_msgs::action::Fibonacci::Result>();
+    auto result = std::make_shared<conveysort_msgs::action::Fibonacci::Result>();
 
     for (int i = 1; (i < goal->order) && rclcpp::ok(); ++i)
     {
@@ -90,6 +95,6 @@ private:
     }
   }
 };
-}  // namespace armbot_cpp_examples
+}  // namespace conveysort_cpp_examples
 
-RCLCPP_COMPONENTS_REGISTER_NODE(armbot_cpp_examples::SimpleActionServer)
+RCLCPP_COMPONENTS_REGISTER_NODE(conveysort_cpp_examples::SimpleActionServer)

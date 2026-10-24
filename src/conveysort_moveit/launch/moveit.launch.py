@@ -1,3 +1,8 @@
+# Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+# Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+# Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+# and in some files the arm's joints and servos.
+
 import os
 from launch import LaunchDescription
 from moveit_configs_utils import MoveItConfigsBuilder
@@ -17,14 +22,14 @@ def generate_launch_description():
     )
 
     moveit_config = (
-        MoveItConfigsBuilder("armbot", package_name="armbot_moveit")
+        MoveItConfigsBuilder("conveysort_arm", package_name="conveysort_moveit")
         .robot_description(file_path=os.path.join(
-            get_package_share_directory("armbot_description"),
+            get_package_share_directory("conveysort_description"),
             "urdf",
-            "armbot.urdf.xacro"
+            "conveysort_arm.urdf.xacro"
             )
         )
-        .robot_description_semantic(file_path="config/armbot.srdf")
+        .robot_description_semantic(file_path="config/conveysort_arm.srdf")
         .trajectory_execution(file_path="config/moveit_controllers.yaml")
         .to_moveit_configs()
     )
@@ -41,7 +46,7 @@ def generate_launch_description():
 
     # RViz
     rviz_config = os.path.join(
-        get_package_share_directory("armbot_moveit"),
+        get_package_share_directory("conveysort_moveit"),
             "config",
             "moveit.rviz",
     )

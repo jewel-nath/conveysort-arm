@@ -1,3 +1,8 @@
+# Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+# Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+# Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+# and in some files the arm's joints and servos.
+
 import os
 from ament_index_python.packages import get_package_share_directory, get_package_prefix
 
@@ -11,17 +16,17 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
-    armbot_description_dir = get_package_share_directory('armbot_description')
-    armbot_description_share = os.path.join(get_package_prefix('armbot_description'), 'share')
+    conveysort_description_dir = get_package_share_directory('conveysort_description')
+    conveysort_description_share = os.path.join(get_package_prefix('conveysort_description'), 'share')
     gazebo_ros_dir = get_package_share_directory('gazebo_ros')
 
     model_arg = DeclareLaunchArgument(name='model', default_value=os.path.join(
-                                        armbot_description_dir, 'urdf', 'armbot.urdf.xacro'
+                                        conveysort_description_dir, 'urdf', 'conveysort_arm.urdf.xacro'
                                         ),
                                       description='Absolute path to robot urdf file'
     )
 
-    env_var = SetEnvironmentVariable('GAZEBO_MODEL_PATH', armbot_description_share)
+    env_var = SetEnvironmentVariable('GAZEBO_MODEL_PATH', conveysort_description_share)
 
     robot_description = ParameterValue(Command(['xacro ', LaunchConfiguration('model')]),
                                        value_type=str)
@@ -45,7 +50,7 @@ def generate_launch_description():
     )
 
     spawn_robot = Node(package='gazebo_ros', executable='spawn_entity.py',
-                        arguments=['-entity', 'armbot',
+                        arguments=['-entity', 'conveysort_arm',
                                    '-topic', 'robot_description',
                                   ],
                         output='screen'

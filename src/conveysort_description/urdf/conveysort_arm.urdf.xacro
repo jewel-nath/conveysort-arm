@@ -1,14 +1,20 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="armbot">
+<!--
+  ConveySort-Arm's model. The arm's links, joints and meshes come from my team's EnviroBot project
+  (https://github.com/jewel-nath/envirobot). The file's layout follows the arduinobot code from
+  Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing! Manipulators"
+  (https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators), Apache License 2.0 (LICENSE-APACHE).
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="conveysort_arm">
 
     <!-- Load Simulated or Real Hardware Interfaces -->
     <xacro:arg name="is_sim" default="true"/>
 
     <!-- Include Gazebo Parameters -->
-    <xacro:include filename="$(find armbot_description)/urdf/armbot_gazebo.xacro" />
+    <xacro:include filename="$(find conveysort_description)/urdf/conveysort_arm_gazebo.xacro" />
 
     <!-- Include ros2_control Plugins -->
-    <xacro:include filename="$(find armbot_description)/urdf/armbot_ros2_control.xacro" />
+    <xacro:include filename="$(find conveysort_description)/urdf/conveysort_arm_ros2_control.xacro" />
 
     <!-- Useful XACRO Variables (Properties) -->
     <xacro:property name="PI" value="3.14159265359" />
@@ -44,7 +50,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0.01" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/base_cylinder.stl"
+                <mesh filename="package://conveysort_description/meshes/base_cylinder.stl"
                     scale="0.0001 0.0001 0.0001" />
             </geometry>
             <material name="black">
@@ -54,7 +60,7 @@
         <collision>
             <origin rpy="0 0 0" xyz="0 0 0.01" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/base_cylinder.stl"
+                <mesh filename="package://conveysort_description/meshes/base_cylinder.stl"
                     scale="0.0001 0.0001 0.0001" />
             </geometry>
         </collision>
@@ -65,7 +71,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/top_plate.stl"
+                <mesh filename="package://conveysort_description/meshes/top_plate.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
             <material name="black" />
@@ -73,7 +79,7 @@
         <collision>
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/top_plate.stl"
+                <mesh filename="package://conveysort_description/meshes/top_plate.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
@@ -84,7 +90,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/lower_arm.stl"
+                <mesh filename="package://conveysort_description/meshes/lower_arm.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
             <material name="black" />
@@ -92,7 +98,7 @@
         <collision>
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/lower_arm.stl"
+                <mesh filename="package://conveysort_description/meshes/lower_arm.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
@@ -103,7 +109,7 @@
         <visual>
             <origin rpy="0 1.59 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/top_arm.stl"
+                <mesh filename="package://conveysort_description/meshes/top_arm.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
             <material name="black" />
@@ -111,7 +117,7 @@
         <collision>
             <origin rpy="0 1.59 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/top_arm.stl"
+                <mesh filename="package://conveysort_description/meshes/top_arm.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
@@ -122,7 +128,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/wrist.stl"
+                <mesh filename="package://conveysort_description/meshes/wrist.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
             <material name="black" />
@@ -130,7 +136,7 @@
         <collision>
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/wrist.stl"
+                <mesh filename="package://conveysort_description/meshes/wrist.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
@@ -141,7 +147,7 @@
         <visual>
             <origin rpy="0 3.18 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/clawbase.stl"
+                <mesh filename="package://conveysort_description/meshes/clawbase.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
             <material name="white">
@@ -151,7 +157,7 @@
         <collision>
             <origin rpy="0 3.18 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/clawbase.stl"
+                <mesh filename="package://conveysort_description/meshes/clawbase.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
@@ -162,7 +168,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/clawr.stl"
+                <mesh filename="package://conveysort_description/meshes/clawr.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
             <material name="white" />
@@ -170,7 +176,7 @@
         <collision>
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/clawr.stl"
+                <mesh filename="package://conveysort_description/meshes/clawr.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
         </collision>
@@ -181,7 +187,7 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/clawl.stl"
+                <mesh filename="package://conveysort_description/meshes/clawl.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
             <material name="white" />
@@ -189,7 +195,7 @@
         <collision>
             <origin rpy="0 0 0" xyz="0 0 0" />
             <geometry>
-                <mesh filename="package://armbot_description/meshes/clawl.stl"
+                <mesh filename="package://conveysort_description/meshes/clawl.stl"
                     scale="0.001 0.001 0.001" />
             </geometry>
         </collision>

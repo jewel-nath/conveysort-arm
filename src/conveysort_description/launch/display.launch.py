@@ -1,3 +1,8 @@
+# Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+# Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+# Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+# and in some files the arm's joints and servos.
+
 import os
 from ament_index_python.packages import get_package_share_directory
 
@@ -10,10 +15,10 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
-    armbot_description_dir = get_package_share_directory('armbot_description')
+    conveysort_description_dir = get_package_share_directory('conveysort_description')
 
     model_arg = DeclareLaunchArgument(name='model', default_value=os.path.join(
-                                        armbot_description_dir, 'urdf', 'armbot.urdf.xacro'
+                                        conveysort_description_dir, 'urdf', 'conveysort_arm.urdf.xacro'
                                         ),
                                       description='Absolute path to robot urdf file')
 
@@ -36,7 +41,7 @@ def generate_launch_description():
         executable='rviz2',
         name='rviz2',
         output='screen',
-        arguments=['-d', os.path.join(armbot_description_dir, 'rviz', 'display.rviz')],
+        arguments=['-d', os.path.join(conveysort_description_dir, 'rviz', 'display.rviz')],
     )
 
     return LaunchDescription([

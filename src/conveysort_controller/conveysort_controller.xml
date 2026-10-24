@@ -1,10 +1,16 @@
-<library path="armbot_controller">
-    <class name="armbot_controller/ArmbotInterface"
-      type="armbot_controller::ArmbotInterface"
+<!--
+  Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+  Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+  Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+  and in some files the arm's joints and servos.
+-->
+<library path="conveysort_controller">
+    <class name="conveysort_controller/ConveysortInterface"
+      type="conveysort_controller::ConveysortInterface"
       base_class_type="hardware_interface::SystemInterface"
     >
       <description>
-        Armbot Hardware Interface
+        ConveySort-Arm hardware interface
       </description>
     </class>
   </library>

@@ -1,5 +1,10 @@
+# Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+# Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+# Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+# and in some files the arm's joints and servos.
+
 cmake_minimum_required(VERSION 3.8)
-project(armbot_remote)
+project(conveysort_remote)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -10,7 +15,7 @@ find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(rclcpp_components REQUIRED)
-find_package(armbot_msgs REQUIRED)
+find_package(conveysort_msgs REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 find_package(rclpy REQUIRED)
 
@@ -21,13 +26,13 @@ target_include_directories(task_server PRIVATE
 target_compile_definitions(task_server
   PRIVATE "TASK_SERVER_CPP_BUILDING_DLL")
 ament_target_dependencies(task_server
-  "armbot_msgs"
+  "conveysort_msgs"
   "rclcpp"
   "rclcpp_action"
   "rclcpp_components"
   "moveit_ros_planning_interface")
 rclcpp_components_register_node(task_server 
-  PLUGIN "armbot_remote::TaskServer" 
+  PLUGIN "conveysort_remote::TaskServer" 
   EXECUTABLE task_server_node
 )
 

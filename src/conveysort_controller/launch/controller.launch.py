@@ -1,3 +1,8 @@
+# Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+# Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+# Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+# and in some files the arm's joints and servos.
+
 import os
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
@@ -22,9 +27,9 @@ def generate_launch_description():
             [
                 "xacro ",
                 os.path.join(
-                    get_package_share_directory("armbot_description"),
+                    get_package_share_directory("conveysort_description"),
                     "urdf",
-                    "armbot.urdf.xacro",
+                    "conveysort_arm.urdf.xacro",
                 ),
                 " is_sim:=False"
             ]
@@ -46,9 +51,9 @@ def generate_launch_description():
             {"robot_description": robot_description,
              "use_sim_time": is_sim},
             os.path.join(
-                get_package_share_directory("armbot_controller"),
+                get_package_share_directory("conveysort_controller"),
                 "config",
-                "armbot_controllers.yaml",
+                "conveysort_arm_controllers.yaml",
             ),
         ],
         condition=UnlessCondition(is_sim),

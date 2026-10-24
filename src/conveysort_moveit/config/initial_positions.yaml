@@ -1,4 +1,9 @@
-# Default initial positions for armbot's ros2_control fake system
+# Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+# Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+# Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+# and in some files the arm's joints and servos.
+
+# Default initial positions for ConveySort-Arm's ros2_control fake system
 
 initial_positions:
   joint_1: 0

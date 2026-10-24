@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot name="armbot">
+<!--
+  Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+  Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+  Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+  and in some files the arm's joints and servos.
+-->
+<robot name="conveysort_arm">
     <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
     <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
     <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->

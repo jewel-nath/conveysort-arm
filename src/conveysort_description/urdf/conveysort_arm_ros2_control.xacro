@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="armbot">
+<!--
+  Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+  Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+  Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+  and in some files the arm's joints and servos.
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="conveysort_arm">
 
     <ros2_control name="RobotSystem" type="system">
 
@@ -11,7 +17,7 @@
                 <plugin>gazebo_ros2_control/GazeboSystem</plugin>
             </hardware>
             <hardware>
-                <plugin>armbot_controller/ArmbotInterface</plugin>
+                <plugin>conveysort_controller/ConveysortInterface</plugin>
                 <param name="port">/dev/ttyACM0</param>
             </hardware>
 
@@ -28,7 +34,7 @@
         <!-- ros2_control Real Robot -->
         <xacro:unless value="$(arg is_sim)">
             <hardware>
-                <plugin>armbot_controller/ArmbotInterface</plugin>
+                <plugin>conveysort_controller/ConveysortInterface</plugin>
                 <param name="port">/dev/ttyACM0</param>
             </hardware>
         </xacro:unless>

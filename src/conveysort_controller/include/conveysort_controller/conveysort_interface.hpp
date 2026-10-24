@@ -1,5 +1,10 @@
-#ifndef ARMBOT_INTERFACE_H
-#define ARMBOT_INTERFACE_H
+// Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+// Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+// Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+// and in some files the arm's joints and servos.
+
+#ifndef CONVEYSORT_INTERFACE_H
+#define CONVEYSORT_INTERFACE_H
 
 #include <rclcpp/rclcpp.hpp>
 #include <hardware_interface/system_interface.hpp>
@@ -11,16 +16,16 @@
 #include <string>
 
 
-namespace armbot_controller
+namespace conveysort_controller
 {
 
 using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
 
-class ArmbotInterface : public hardware_interface::SystemInterface
+class ConveysortInterface : public hardware_interface::SystemInterface
 {
 public:
-  ArmbotInterface();
-  virtual ~ArmbotInterface();
+  ConveysortInterface();
+  virtual ~ConveysortInterface();
 
   // Implementing rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface
   virtual CallbackReturn on_activate(const rclcpp_lifecycle::State &previous_state) override;
@@ -40,7 +45,7 @@ private:
   std::vector<double> prev_position_commands_;
   std::vector<double> position_states_;
 };
-}  // namespace armbot_controller
+}  // namespace conveysort_controller
 
 
-#endif  // ARMBOT_INTERFACE_H
+#endif  // CONVEYSORT_INTERFACE_H

@@ -1,5 +1,10 @@
+// Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+// Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+// Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+// and in some files the arm's joints and servos.
+
 #include <rclcpp/rclcpp.hpp>
-#include "armbot_msgs/srv/add_two_ints.hpp"
+#include "conveysort_msgs/srv/add_two_ints.hpp"
 
 #include <chrono>
 #include <memory>
@@ -14,9 +19,9 @@ class SimpleServiceClient : public rclcpp::Node
 public:
     SimpleServiceClient(int a, int b) : Node("simple_service_client")
     {
-        client_ = create_client<armbot_msgs::srv::AddTwoInts>("add_two_ints");
+        client_ = create_client<conveysort_msgs::srv::AddTwoInts>("add_two_ints");
 
-        auto request = std::make_shared<armbot_msgs::srv::AddTwoInts::Request>();
+        auto request = std::make_shared<conveysort_msgs::srv::AddTwoInts::Request>();
         request->a = a;
         request->b = b;
 
@@ -33,9 +38,9 @@ public:
     }
 
 private:
-    rclcpp::Client<armbot_msgs::srv::AddTwoInts>::SharedPtr client_;
+    rclcpp::Client<conveysort_msgs::srv::AddTwoInts>::SharedPtr client_;
 
-    void responseCallback(rclcpp::Client<armbot_msgs::srv::AddTwoInts>::SharedFuture future)
+    void responseCallback(rclcpp::Client<conveysort_msgs::srv::AddTwoInts>::SharedFuture future)
     {
         if(future.valid())
         {

@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+# Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+# Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+# Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+# and in some files the arm's joints and servos.
+
 from flask import Flask
 from ask_sdk_core.skill_builder import SkillBuilder
 from flask_ask_sdk.skill_adapter import SkillAdapter
@@ -7,14 +12,14 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model import Response
 from ask_sdk_model.ui import SimpleCard
 from ask_sdk_core.dispatch_components import AbstractRequestHandler, AbstractExceptionHandler
-from armbot_msgs.action import ArmbotTask
+from conveysort_msgs.action import ConveysortTask
 import rclpy
 from rclpy.node import Node
 import threading
 from rclpy.action import ActionClient
 
 threading.Thread(target=lambda: rclpy.init()).start()
-action_client = ActionClient(Node('alexa_interface'), ArmbotTask, "task_server")
+action_client = ActionClient(Node('alexa_interface'), ConveysortTask, "task_server")
 
 app = Flask(__name__)
 
@@ -32,7 +37,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
             SimpleCard("Online", speech_text)).set_should_end_session(
             False)
 
-        goal = ArmbotTask.Goal()
+        goal = ConveysortTask.Goal()
         goal.task_number = 0
         action_client.send_goal_async(goal)
 
@@ -52,7 +57,7 @@ class PickIntentHandler(AbstractRequestHandler):
             SimpleCard("Pick", speech_text)).set_should_end_session(
             True)
 
-        goal = ArmbotTask.Goal()
+        goal = ConveysortTask.Goal()
         goal.task_number = 1
         action_client.send_goal_async(goal)
 
@@ -72,7 +77,7 @@ class SleepIntentHandler(AbstractRequestHandler):
             SimpleCard("Sleep", speech_text)).set_should_end_session(
             True)
 
-        goal = ArmbotTask.Goal()
+        goal = ConveysortTask.Goal()
         goal.task_number = 2
         action_client.send_goal_async(goal)
 
@@ -92,7 +97,7 @@ class WakeIntentHandler(AbstractRequestHandler):
             SimpleCard("Wake", speech_text)).set_should_end_session(
             True)
             
-        goal = ArmbotTask.Goal()
+        goal = ConveysortTask.Goal()
         goal.task_number = 0
         action_client.send_goal_async(goal)
 

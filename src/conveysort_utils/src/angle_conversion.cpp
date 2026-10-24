@@ -1,6 +1,11 @@
+// Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+// Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+// Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+// and in some files the arm's joints and servos.
+
 #include <rclcpp/rclcpp.hpp>
-#include "armbot_msgs/srv/euler_to_quaternion.hpp"
-#include "armbot_msgs/srv/quaternion_to_euler.hpp"
+#include "conveysort_msgs/srv/euler_to_quaternion.hpp"
+#include "conveysort_msgs/srv/quaternion_to_euler.hpp"
 #include <tf2/utils.h>
 
 #include <memory>
@@ -13,20 +18,20 @@ class AnglesConverter : public rclcpp::Node
 public:
     AnglesConverter() : Node("simple_service_server")
     {
-        euler_to_quaternion_ = create_service<armbot_msgs::srv::EulerToQuaternion>("euler_to_quaternion", 
+        euler_to_quaternion_ = create_service<conveysort_msgs::srv::EulerToQuaternion>("euler_to_quaternion", 
             std::bind(&AnglesConverter::eulerToQuaternionCallback, this, _1, _2));
-        quaternion_to_euler_ = create_service<armbot_msgs::srv::QuaternionToEuler>("quaternion_to_euler", 
+        quaternion_to_euler_ = create_service<conveysort_msgs::srv::QuaternionToEuler>("quaternion_to_euler", 
             std::bind(&AnglesConverter::quaternionToEulerCallback, this, _1, _2));
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Angles conversion services are ready");
     }
 
 
 private:
-    rclcpp::Service<armbot_msgs::srv::EulerToQuaternion>::SharedPtr euler_to_quaternion_;
-    rclcpp::Service<armbot_msgs::srv::QuaternionToEuler>::SharedPtr quaternion_to_euler_;
+    rclcpp::Service<conveysort_msgs::srv::EulerToQuaternion>::SharedPtr euler_to_quaternion_;
+    rclcpp::Service<conveysort_msgs::srv::QuaternionToEuler>::SharedPtr quaternion_to_euler_;
 
-    void eulerToQuaternionCallback(const std::shared_ptr<armbot_msgs::srv::EulerToQuaternion::Request> req,
-                                   const std::shared_ptr<armbot_msgs::srv::EulerToQuaternion::Response> res)
+    void eulerToQuaternionCallback(const std::shared_ptr<conveysort_msgs::srv::EulerToQuaternion::Request> req,
+                                   const std::shared_ptr<conveysort_msgs::srv::EulerToQuaternion::Response> res)
     {
         RCLCPP_INFO_STREAM(rclcpp::get_logger("rclcpp"), "Requested to convert euler angles roll: " << req->roll << 
                                                          ", pitch: " << req->pitch << ", yaw: " << req->yaw <<
@@ -43,8 +48,8 @@ private:
                                                          ", w: " << res->w);
     }
 
-    void quaternionToEulerCallback(const std::shared_ptr<armbot_msgs::srv::QuaternionToEuler::Request> req,
-                                   const std::shared_ptr<armbot_msgs::srv::QuaternionToEuler::Response> res)
+    void quaternionToEulerCallback(const std::shared_ptr<conveysort_msgs::srv::QuaternionToEuler::Request> req,
+                                   const std::shared_ptr<conveysort_msgs::srv::QuaternionToEuler::Response> res)
     {
         RCLCPP_INFO_STREAM(rclcpp::get_logger("rclcpp"), "Requested to convert quaternion x: " << req->x << 
                                                          ", y: " << req->y << ", z: " << req->z << 

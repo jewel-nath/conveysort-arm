@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
+<!--
+  Based on the arduinobot code from Antonio Brandi's course "Robotics and ROS 2 - Learn by Doing!
+  Manipulators": https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators
+  Licensed under the Apache License 2.0 (LICENSE-APACHE). Changed for ConveySort-Arm: the names,
+  and in some files the arm's joints and servos.
+-->
 <package format="3">
-  <name>armbot_controller</name>
+  <name>conveysort_controller</name>
   <version>0.0.0</version>
-  <description>The armbot_controller package</description>
-  <maintainer email="jewelnath.me@gmail.com">Jewel Nath</maintainer>
-  <license>Apache 2.0</license>
-  <author email="jewelnath.me@gmail.com">Jewel Nath</author>
+  <description>The conveysort_controller package</description>
+  <maintainer email="58494211+jewel-nath@users.noreply.github.com">Jewel Nath</maintainer>
+  <license>Apache-2.0</license>
+  <author email="antonio.brandi@outlook.it">Antonio Brandi</author>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>ament_cmake_python</buildtool_depend>
