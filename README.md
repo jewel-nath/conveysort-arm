@@ -18,8 +18,17 @@ and run in October and November 2024.
 **[ConveySort-Arm: A Low-Cost Vision-Guided Sorting Cell with a Conveyor Belt and a Six-Servo Arm — Design and Prototype](docs/report/conveysort-arm-report.pdf)**
 (October 2026, 13 pages): the build, the electronics, the vision, the
 control and the timing of a sort, with 13 diagrams. By Jewel Nath and
-Shafiul Alam Chowdhury (RoboAI). Its source and the diagrams are in
-[docs/report/](docs/report/README.md) and [docs/diagrams/](docs/diagrams/README.md).
+Shafiul Alam Chowdhury (RoboAI); on Zenodo as
+[doi:10.5281/zenodo.23741975](https://doi.org/10.5281/zenodo.23741975). Its
+source and the diagrams are in [docs/report/](docs/report/README.md) and
+[docs/diagrams/](docs/diagrams/README.md), and the project's page is
+[jewelnath.dev/conveysort-arm](https://jewelnath.dev/conveysort-arm).
+
+To cite it:
+
+> Nath, J., & Chowdhury, S. A. (2026). *ConveySort-Arm: A Low-Cost
+> Vision-Guided Sorting Cell with a Conveyor Belt and a Six-Servo Arm - Design
+> and Prototype* (Version 1.0). Zenodo. https://doi.org/10.5281/zenodo.23741975
 
 ## What it does
 

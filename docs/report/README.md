@@ -5,7 +5,8 @@ and a Six-Servo Arm — Design and Prototype.** Version 1.0, October 2026.
 
 By Jewel Nath and Shafiul Alam Chowdhury (RoboAI).
 
-[Read the PDF](conveysort-arm-report.pdf) (13 pages, one column).
+[Read the PDF](conveysort-arm-report.pdf) (13 pages, one column). On Zenodo:
+[doi:10.5281/zenodo.23741975](https://doi.org/10.5281/zenodo.23741975).
 
 It describes the cell's build, electronics, vision, control and the timing of
 a sort, the behaviours recorded on video in November 2024, and the next
