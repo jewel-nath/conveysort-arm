@@ -1,0 +1,34 @@
+% The 15-step pick-and-place, from PickPlaceSequence::createSequence() in
+% firmware/conveyor-sorter. Angles are the servo commands in degrees.
+\begin{tikzpicture}[node distance=3mm and 4mm,
+    stp/.style={mcubox, minimum width=31mm, minimum height=6mm, font=\scriptsize, inner sep=2pt},
+    hdr/.style={font=\footnotesize\sffamily\bfseries, anchor=south}]
+  % four phases as columns
+  \node[hdr, text=mcuedge] (h1) at (0,0) {Reach the block};
+  \node[stp, below=2mm of h1] (s1) {1 elbow up, 150$^\circ$};
+  \node[stp, below=of s1] (s2) {2 base to the belt, 170$^\circ$};
+  \node[stp, below=of s2] (s3) {3 gripper open, 120$^\circ$};
+  \node[stp, below=of s3] (s4) {4 shoulder down, 85$^\circ$};
+  \node[stp, below=of s4] (s5) {5 wrist pitch, 10$^\circ$};
+  \node[stp, below=of s5] (s6) {6 wrist roll, 90$^\circ$};
+
+  \node[hdr, text=uiedge] (h2) at (37mm,0) {Grip and lift};
+  \node[stp, uibox, below=2mm of h2] (s7) {7 grip: 155$^\circ$ / 150$^\circ$ / 140$^\circ$};
+  \node[stp, uibox, below=of s7] (s8) {8 shoulder up, 50$^\circ$};
+  \node[font=\scriptsize, below=2mm of s8, text width=31mm, align=center] {small / medium / large: a bigger block, a wider grip};
+
+  \node[hdr, text=visedge] (h3) at (74mm,0) {Set it down};
+  \node[stp, visbox, below=2mm of h3] (s9) {9 base: 90$^\circ$ / 50$^\circ$ / 10$^\circ$};
+  \node[stp, visbox, below=of s9] (s10) {10 wrist pitch, 30$^\circ$};
+  \node[stp, visbox, below=of s10] (s11) {11 elbow out, 140$^\circ$};
+  \node[stp, visbox, below=of s11] (s12) {12 shoulder down, 100$^\circ$};
+  \node[stp, visbox, below=of s12] (s13) {13 wrist roll, 90$^\circ$};
+  \node[stp, visbox, below=of s13] (s14) {14 gripper open, 120$^\circ$};
+
+  \node[hdr, text=hostedge] (h4) at (111mm,0) {Return};
+  \node[stp, hostbox, below=2mm of h4] (s15) {15 shoulder up, 50$^\circ$};
+  \node[stp, hostbox, below=of s15, align=center] (home) {home, joint by joint:\\shoulder, elbow, base,\\wrists, gripper};
+
+  \foreach \a/\b in {h1/h2, h2/h3, h3/h4}
+    \draw[flow, hwedge] (\a.east) -- (\b.west);
+\end{tikzpicture}

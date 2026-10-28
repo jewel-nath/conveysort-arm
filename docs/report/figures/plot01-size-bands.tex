@@ -1,0 +1,20 @@
+% The size classes by outline area, from src/vision/sort_by_size.py:
+% MIN_AREA 1,200, SMALL_THRESHOLD 17,000 and MEDIUM_THRESHOLD 28,000 px^2,
+% in a 639 x 480 frame (306,720 px). The tuning tool, object_size_detection.py,
+% uses 25,000 for medium.
+\begin{tikzpicture}[x=2.6mm, y=1mm]
+  % scale: 1 unit = 1,000 px^2
+  \fill[hw] (0,0) rectangle (1.2,10);
+  \fill[mcu, draw=mcuedge] (1.2,0) rectangle (17,10);
+  \fill[ui, draw=uiedge] (17,0) rectangle (28,10);
+  \fill[vis, draw=visedge] (28,0) rectangle (45,10);
+  \node[font=\footnotesize\bfseries, text=mcuedge] at (9.1,5) {small};
+  \node[font=\footnotesize\bfseries, text=uiedge] at (22.5,5) {medium};
+  \node[font=\footnotesize\bfseries, text=visedge] at (36.5,5) {large};
+  \foreach \v/\lab in {0/0, 10/10, 17/17, 28/28, 40/40}
+    \draw (\v,0) -- (\v,-1.5) node[below, font=\scriptsize] {\lab};
+  \node[font=\scriptsize, anchor=north] at (22.5,-6.5) {outline area, thousand px$^2$};
+  \draw[hwedge, ->] (1.2,12) node[above, font=\scriptsize, align=center] {ignored below\\1,200 px$^2$} -- (1.2,10.3);
+  \draw[densely dashed, uiedge] (25,10) -- (25,13) node[above, font=\scriptsize, align=center] {25,000 in the\\tuning tool};
+  \node[font=\scriptsize, anchor=west, align=left] at (46,5) {5.5\% and 9.1\%\\of the frame};
+\end{tikzpicture}

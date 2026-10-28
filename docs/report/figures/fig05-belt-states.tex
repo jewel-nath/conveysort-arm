@@ -1,0 +1,18 @@
+% The belt's states, from ConveyorSystem::update() in firmware/conveyor-sorter:
+% the ultrasonic distance d, read every 100 ms as the mean of three pings.
+\begin{tikzpicture}[node distance=10mm and 22mm,
+    state/.style={mcubox, rounded corners=6pt, minimum width=32mm, minimum height=12mm, font=\scriptsize}]
+  \node[state] (idle) {\textbf{Waiting}\\belt still, no block};
+  \node[state, right=of idle] (run) {\textbf{Running}\\a block is coming};
+  \node[state, below=16mm of $(idle)!0.5!(run)$] (stop) {\textbf{Block in place}\\belt stopped};
+  \draw[flow] (idle) to[bend left=12] node[lbl] {$7 < d \le 45$\,cm} (run);
+  \draw[flow] (run) to[bend left=12] node[lbl] {$d > 45$\,cm} (idle);
+  \draw[flow] (run) -- node[lbl, align=center] {$d \le 7$\,cm\\``Object detected''} (stop);
+  \draw[flow] (stop) -- node[lbl, align=center] {block taken away\\($d > 45$\,cm)} (idle);
+  \draw[flow] ($(idle.south west)+(5mm,0)$) |- node[lbl, pos=0.3] {$d \le 7$\,cm} (stop.west);
+  \node[uibox, below=8mm of stop, minimum width=56mm, font=\scriptsize] (cmd)
+    {the arm runs only here, on the PC's 1, 2 or 3};
+  \draw[dataflow] (cmd) -- (stop);
+  \node[warnbox, right=8mm of run, font=\scriptsize, minimum width=26mm] (to) {running for 30\,s\\$\to$ reset};
+  \draw[dataflow] (run) -- (to);
+\end{tikzpicture}

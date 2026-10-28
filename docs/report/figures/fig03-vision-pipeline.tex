@@ -1,0 +1,14 @@
+% How the PC sizes a block, from src/vision/sort_by_size.py (read 2026-10-29).
+\begin{tikzpicture}[node distance=5mm and 5mm,
+    st/.style={visbox, minimum width=27mm, minimum height=15mm, font=\scriptsize}]
+  \node[st] (a) {\textbf{Frame}\\639 $\times$ 480,\\mirrored};
+  \node[st, right=of a] (b) {\textbf{Grey}, then a\\window: 100 off the top,\\80 off the bottom,\\20 off each side};
+  \node[st, right=of b] (c) {\textbf{Blur}\\Gaussian, 9 $\times$ 9\\(slider 8, made odd)};
+  \node[st, right=of c] (d) {\textbf{Threshold}\\at 230 of 255:\\the white block};
+  \node[st, below=10mm of d] (e) {\textbf{Outlines}\\outer contours\\only};
+  \node[st, left=of e] (f) {\textbf{Filter}\\area $\ge$ 1,200 px$^2$;\\sides $\ge$ 20 px;\\aspect 0.25--4};
+  \node[st, left=of f] (g) {\textbf{Largest}\\outline left\\in the window};
+  \node[hostbox, left=of g, minimum width=27mm, minimum height=15mm, font=\scriptsize] (h)
+    {\textbf{Size}\\by its area in px$^2$:\\small, medium, large};
+  \foreach \x/\y in {a/b, b/c, c/d, d/e, e/f, f/g, g/h} \draw[flow] (\x) -- (\y);
+\end{tikzpicture}

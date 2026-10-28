@@ -1,0 +1,21 @@
+% The Arduino's pins, from firmware/conveyor-sorter/conveyor-sorter.ino:
+% Config (pins), RoboticArm::pinPositions (servo channels) and the stepper settings.
+\begin{tikzpicture}[node distance=5mm and 12mm]
+  \node[mcubox, minimum width=30mm, minimum height=44mm, align=left] (ard)
+    {\textbf{Arduino Uno}\\[3pt]\scriptsize D5: STEP\\\scriptsize D6: DIR\\\scriptsize D9: TRIG\\\scriptsize D8: ECHO\\\scriptsize A4, A5: I$^2$C\\\scriptsize USB: the PC};
+  \node[mcubox, right=of ard, yshift=16mm, minimum width=36mm, align=left] (tb)
+    {\textbf{TB6600}\\\scriptsize a 10\,$\mu$s STEP pulse per step};
+  \node[mcubox, right=of ard, minimum width=36mm, align=left] (us)
+    {\textbf{HC-SR04}\\\scriptsize runs the belt at 7--45\,cm, stops at 7\,cm};
+  \node[mcubox, right=of ard, yshift=-17mm, minimum width=36mm, align=left] (pca)
+    {\textbf{PCA9685} at 60\,Hz\\\scriptsize 150--650 counts for 0--180$^\circ$};
+  \draw[flow] (ard.east |- tb) -- (tb.west);
+  \draw[flow, <->] (ard.east |- us) -- (us.west);
+  \draw[flow] (ard.east |- pca) -- (pca.west);
+
+  \node[hwbox, right=of pca, minimum width=46mm, align=left, font=\scriptsize] (ch)
+    {channel 8: base\\channel 2: shoulder\\channel 3: elbow\\channel 5: wrist pitch\\channel 6: wrist roll\\channel 7: gripper};
+  \draw[flow] (pca) -- (ch);
+  \node[hwbox, right=of tb, minimum width=30mm, font=\scriptsize] (st) {stepper motor, belt};
+  \draw[flow] (tb) -- (st);
+\end{tikzpicture}

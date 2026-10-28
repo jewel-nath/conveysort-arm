@@ -13,6 +13,14 @@ and run in October and November 2024.
 |---|---|---|
 | <a href="docs/media/conveysort-arm-2024-11-18-arm-camera-and-conveyor.mp4"><img src="docs/media/conveysort-arm-2024-11-18-arm-camera-and-conveyor-poster.jpg" width="250" alt="The arm taking a block off the belt"></a><br>**11-18:** the whole system: the webcam watches the belt, and the arm takes the block off it, sets it down and goes back ([video](docs/media/conveysort-arm-2024-11-18-arm-camera-and-conveyor.mp4), 35 s) | <a href="docs/media/conveysort-arm-2024-11-16-camera-detection.mp4"><img src="docs/media/conveysort-arm-2024-11-16-camera-detection-poster.jpg" width="250" alt="OpenCV outlining and measuring a block"></a><br>**11-16:** the tuning window's view: each frame turned grey, blurred and thresholded, then the block outlined, measured and called small, medium or large ([video](docs/media/conveysort-arm-2024-11-16-camera-detection.mp4), 14 s) | <a href="docs/media/conveysort-arm-2024-11-16-belt-sensor-and-arm.mp4"><img src="docs/media/conveysort-arm-2024-11-16-belt-sensor-and-arm-poster.jpg" width="250" alt="The arm picking a block at the end of the belt"></a><br>**11-16:** one cycle before the camera: the belt brings a block to the ultrasonic sensor, and the arm picks it up and sets it down ([video](docs/media/conveysort-arm-2024-11-16-belt-sensor-and-arm.mp4), 38 s) |
 
+## Technical report
+
+**[ConveySort-Arm: A Low-Cost Vision-Guided Sorting Cell with a Conveyor Belt and a Six-Servo Arm — Design and Prototype](docs/report/conveysort-arm-report.pdf)**
+(October 2026, 13 pages): the build, the electronics, the vision, the
+control and the timing of a sort, with 13 diagrams. By Jewel Nath and
+Shafiul Alam Chowdhury (RoboAI). Its source and the diagrams are in
+[docs/report/](docs/report/README.md) and [docs/diagrams/](docs/diagrams/README.md).
+
 ## What it does
 
 - **Measures each block.** [`src/vision/sort_by_size.py`](src/vision/sort_by_size.py)
@@ -46,6 +54,13 @@ October and November 2024, in date order.
 | <img src="docs/media/conveysort-arm-2024-11-16-conveyor-from-above.jpg" width="250" alt="Three blocks of three sizes on the belt"><br>**11-16:** the conveyor from above, with the three test sizes, the stepper motor at one end, and the driver and Arduino Uno beside it | <img src="docs/media/conveysort-arm-2024-11-16-camera-on-stand.jpg" width="250" alt="A webcam on a stand behind the belt"><br>**11-16, evening:** a webcam on a stand now looks down at the belt; by 11-18 it is on a clamp | |
 
 ## How it works
+
+<img src="docs/diagrams/conveysort-arm-system-overview.png" width="760" alt="System overview: the PC runs the vision and sends the size over serial; the Arduino drives the belt and the arm">
+
+| | |
+|---|---|
+| <img src="docs/diagrams/conveysort-arm-vision-pipeline.png" width="370" alt="How the PC sizes a block"><br>**Vision:** grey, a window, blur, threshold, outline, then the size by its area | <img src="docs/diagrams/conveysort-arm-belt-states.png" width="370" alt="The belt's states"><br>**Belt:** runs while a block comes, stops it at 7 cm for the arm |
+| <img src="docs/diagrams/conveysort-arm-pick-place.png" width="370" alt="The 15-step pick-and-place"><br>**Arm:** 15 steps; the grip and the set-down place depend on the size | <img src="docs/diagrams/conveysort-arm-cycle-time.png" width="370" alt="The programmed time of one sort"><br>**Timing:** 35 to 38 s per block, as programmed |
 
 | | |
 |---|---|
@@ -86,12 +101,15 @@ real-robot path.
 | [`src/conveysort_*`](src) | The ROS 2 workspace, one folder per package |
 | [`experiments/`](experiments) | The first tests of the belt, the sensor and the servos, a phone-control test on an ESP32, and the course's serial sketches |
 | [`docs/media/`](docs/media) | The photos and videos on this page |
+| [`docs/report/`](docs/report/README.md) | The technical report: its PDF, its LaTeX source and its figures |
+| [`docs/diagrams/`](docs/diagrams/README.md) | Every diagram from the report as its own PDF and PNG |
 | [`scripts/`](scripts) | The script that starts the dev container with the host's display |
 | [`.devcontainer/`](.devcontainer) | A VS Code dev container with ROS 2 Humble, MoveIt and Gazebo |
 
 ## My part
 
-All the commits here are mine. I wrote the sorter, its vision script and
+ConveySort-Arm was built at RoboAI in 2024 by Shafiul Alam Chowdhury and
+me. All the commits here are mine. I wrote the sorter, its vision script and
 its sketch, and the belt, sensor and servo tests in
 [`experiments/`](experiments), and fitted the ROS 2 course code to this
 arm. The sorter's code was committed in April 2026.
@@ -106,9 +124,8 @@ It stands on others' work:
   ([its repository](https://github.com/AntoBrandi/Robotics-and-ROS-2-Learn-by-Doing-Manipulators)),
   with the names changed and the parts above fitted to this arm.
 - The arm's model comes from
-  [EnviroBot](https://github.com/jewel-nath/envirobot), the final-year
-  project I built at Comilla University with Tasmiara Jahan Toma and
-  Tanjina Akter. Its meshes were in EnviroBot too, but are older (2018
+  [EnviroBot](https://github.com/jewel-nath/envirobot), the robot I built
+  at Comilla University with Tasmiara Jahan Toma and Tanjina Akter. Its meshes were in EnviroBot too, but are older (2018
   exports), and their first source is not known.
 - The ESP32 phone-control test started from Ujwal Nandanwar's
   [RobotArm](https://github.com/un0038998/RobotArm) sketch.

@@ -1,0 +1,18 @@
+% The ROS 2 Humble workspace in src/conveysort_*, adapted from Antonio Brandi's
+% course "Robotics and ROS 2 - Learn by Doing! Manipulators" (Apache-2.0). Written,
+% not run (the team's word, 2026-10-29).
+\begin{tikzpicture}[node distance=4mm and 5mm,
+    pkg/.style={hostbox, minimum width=34mm, minimum height=10mm, font=\scriptsize}]
+  \node[pkg] (desc) {\textbf{description}\\the arm in URDF};
+  \node[pkg, right=of desc] (ctrl) {\textbf{controller}\\hardware plugin, 6 servos};
+  \node[pkg, right=of ctrl] (moveit) {\textbf{moveit}\\planning set-up};
+  \node[pkg, below=of desc] (bring) {\textbf{bringup}\\real and simulated};
+  \node[pkg, below=of ctrl] (remote) {\textbf{remote}\\task server};
+  \node[pkg, below=of moveit] (msgs) {\textbf{msgs}\\task action};
+  \node[pkg, below=of bring] (fw) {\textbf{firmware}\\serial nodes};
+  \node[pkg, below=of remote] (utils) {\textbf{utils}\\conversions};
+  \node[pkg, below=of msgs] (ex) {\textbf{cpp and py examples}\\course exercises};
+  \begin{scope}[on background layer]
+    \node[group, draw=hostedge, fit=(desc) (moveit) (ex), label={[grouplabel, anchor=south west]north west:ROS 2 Humble, written, not run}] {};
+  \end{scope}
+\end{tikzpicture}

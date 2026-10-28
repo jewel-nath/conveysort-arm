@@ -1,0 +1,38 @@
+% The sorting cell's parts and links, from src/vision/sort_by_size.py and
+% firmware/conveyor-sorter/conveyor-sorter.ino (read 2026-10-29).
+\begin{tikzpicture}[node distance=7mm and 11mm]
+  % The PC side
+  \node[visbox, minimum width=32mm] (cam) {\textbf{Webcam}\\\scriptsize above the belt};
+  \node[hostbox, below=of cam, minimum width=32mm, minimum height=15mm] (pc)
+    {\textbf{PC}\\\scriptsize \topic{sort_by_size.py}\\\scriptsize OpenCV};
+  \draw[flow] (cam) -- node[lbl] {USB video} (pc);
+
+  % The Arduino in the middle
+  \node[mcubox, right=24mm of pc, minimum width=34mm, minimum height=15mm] (ard)
+    {\textbf{Arduino Uno}\\\scriptsize \topic{conveyor-sorter.ino}};
+  \draw[flow] ($(pc.east)+(0,2.5mm)$) -- node[lbl, above=1pt, fill=none] {size: 1, 2, 3} ($(ard.west)+(0,2.5mm)$);
+  \draw[flow] ($(ard.west)+(0,-2.5mm)$) -- node[lbl, below=1pt, fill=none] {status lines} ($(pc.east)+(0,-2.5mm)$);
+  \node[uibox, above=9mm of $(pc.east)!0.5!(ard.west)$, font=\scriptsize] {USB serial, 9600 baud};
+
+  % The belt
+  \node[mcubox, right=14mm of ard, yshift=13mm, minimum width=28mm] (tb) {\textbf{TB6600}\\\scriptsize stepper driver};
+  \node[mcubox, right=6mm of tb, minimum width=26mm] (belt) {\textbf{Stepper}\\\scriptsize turns the belt};
+  \node[mcubox, right=14mm of ard, minimum width=28mm] (us) {\textbf{HC-SR04}\\\scriptsize at the belt's end};
+  \node[mcubox, right=14mm of ard, yshift=-13mm, minimum width=28mm] (pca) {\textbf{PCA9685}\\\scriptsize servo driver};
+  \node[mcubox, right=6mm of pca, minimum width=26mm] (arm) {\textbf{6 servos}\\\scriptsize the arm};
+  \draw[flow] ($(ard.east)+(0,3mm)$) -- ++(5mm,0) |- (tb.west);
+  \draw[flow] (us.west) -- (ard.east);
+  \draw[flow] ($(ard.east)+(0,-3mm)$) -- ++(5mm,0) |- (pca.west);
+  \node[font=\scriptsize, above] at ($(tb.west)+(-4mm,0)$) {pulses};
+  \node[font=\scriptsize, above] at ($(us.west)+(-4mm,0)$) {echo};
+  \node[font=\scriptsize, above] at ($(pca.west)+(-4mm,0)$) {I$^2$C};
+  \draw[flow] (tb) -- (belt);
+  \draw[flow] (pca) -- (arm);
+
+  % Legend
+  \node[font=\scriptsize, anchor=north west] at ($(pc.south west)+(0,-8mm)$)
+    {\tikz\node[hostbox, minimum height=2.5mm, minimum width=4mm, inner sep=0]{};\ PC\quad
+     \tikz\node[visbox, minimum height=2.5mm, minimum width=4mm, inner sep=0]{};\ vision\quad
+     \tikz\node[uibox, minimum height=2.5mm, minimum width=4mm, inner sep=0]{};\ link\quad
+     \tikz\node[mcubox, minimum height=2.5mm, minimum width=4mm, inner sep=0]{};\ belt and arm};
+\end{tikzpicture}

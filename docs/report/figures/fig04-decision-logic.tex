@@ -1,0 +1,22 @@
+% When the PC sends a size, from IntegratedController in src/vision/sort_by_size.py:
+% STABLE_THRESHOLD 10 frames, COMMAND_COOLDOWN 5 s.
+\begin{tikzpicture}[node distance=6mm and 8mm,
+    dec/.style={hostbox, diamond, aspect=2.2, inner sep=1pt, font=\scriptsize, align=center},
+    act/.style={hostbox, minimum width=30mm, font=\scriptsize}]
+  \node[visbox, minimum width=30mm, font=\scriptsize] (f) {\textbf{New frame}\\size of the largest block};
+  \node[dec, below=of f] (same) {same size as\\the last frame?};
+  \node[act, right=12mm of same] (reset) {count = 0,\\remember this size};
+  \node[act, below=of same] (inc) {count + 1};
+  \node[dec, below=of inc] (ten) {count $\ge$ 10?};
+  \node[dec, below=of ten] (cool) {5 s since the\\last command?};
+  \node[uibox, below=of cool, minimum width=30mm, font=\scriptsize] (send) {\textbf{send 1, 2 or 3}\\count = 0};
+  \draw[flow] (f) -- (same);
+  \draw[flow] (same) -- node[lbl] {no} (reset);
+  \draw[flow] (same) -- node[lbl] {yes} (inc);
+  \draw[flow] (inc) -- (ten);
+  \draw[flow] (ten) -- node[lbl] {yes} (cool);
+  \draw[flow] (cool) -- node[lbl] {yes} (send);
+  \draw[flow] (ten.west) -- ++(-10mm,0) |- node[lbl, pos=0.25] {no: wait} (f.west);
+  \draw[flow] (cool.west) -- ++(-10mm,0) |- (f.west);
+  \draw[flow] (reset.north) |- (f.east);
+\end{tikzpicture}

@@ -1,0 +1,27 @@
+% ConveySort-Arm in 2024, from the repository's history and the dated photos and
+% videos (read 2026-10-29).
+\begin{tikzpicture}[x=1.15mm, y=1mm]
+  % months from Jun 2024 (0) to Dec 2024 (6), 18 units each; a tick is the 1st
+  \draw[thick, hwedge] (0,0) -- (130,0);
+  \foreach \m/\lab in {0/Jun, 1/Jul, 2/Aug, 3/Sep, 4/Oct, 5/Nov, 6/Dec} {
+    \draw[hwedge] (\m*18+5,-1.5) -- (\m*18+5,1.5);
+    \node[font=\scriptsize, below] at (\m*18+5,-2) {\lab};
+  }
+  \node[font=\scriptsize\bfseries, below] at (41,-7) {2024};
+  % date / label x / label y / style / text; a negative y puts the label below
+  \foreach \x/\lx/\h/\st/\txt in {
+      20.6/20.6/12/hostbox/{27 Jun: the ROS 2\\workspace begun},
+      79.3/64/26/mcubox/{5 Oct: the first belt,\\the arm and the sensor\\on one board},
+      101.0/96/-13/mcubox/{11 Nov: the black belt\\brings a block to the sensor},
+      104.0/104/40/visbox/{16 Nov: a full cycle, and\\OpenCV sizing blocks},
+      105.2/126/20/uibox/{18 Nov: camera, belt\\and arm together}} {
+    \fill[hwedge] (\x,0) circle (0.9);
+    \draw[hwedge, thin] (\x,0) -- (\lx,\h);
+    \pgfmathsetmacro{\below}{\h < 0 ? 1 : 0}
+    \ifdim\below pt > 0.5pt
+      \node[\st, font=\scriptsize, anchor=north, align=center] at (\lx,\h) {\txt};
+    \else
+      \node[\st, font=\scriptsize, anchor=south, align=center] at (\lx,\h) {\txt};
+    \fi
+  }
+\end{tikzpicture}

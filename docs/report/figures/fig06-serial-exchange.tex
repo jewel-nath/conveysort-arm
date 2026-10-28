@@ -1,0 +1,19 @@
+% One sort, as messages over the serial link, from sort_by_size.py and
+% conveyor-sorter.ino (the Arduino's printed lines are quoted as written).
+\begin{tikzpicture}[x=1mm, y=1mm,
+    fromard/.style={flow, draw=mcuedge},
+    frompc/.style={flow, draw=uiedge}]
+  \node[hostbox, minimum width=30mm] (pc) at (0,0) {\textbf{PC}};
+  \node[mcubox, minimum width=30mm] (ard) at (90,0) {\textbf{Arduino}};
+  \draw[hwedge, dashed] (pc.south) -- (0,-84);
+  \draw[hwedge, dashed] (ard.south) -- (90,-84);
+  \draw[fromard] (90,-12) -- node[above, font=\scriptsize, text=mcuedge] {``Conveyor started moving''} (0,-12);
+  \draw[fromard] (90,-24) -- node[above, font=\scriptsize, text=mcuedge] {``Object detected in position''} (0,-24);
+  \draw[frompc] (0,-38) -- node[above, font=\scriptsize, text=uiedge] {\texttt{2} (the block is medium)} (90,-38);
+  \draw[fromard] (90,-52) -- node[above, font=\scriptsize, text=mcuedge] {``Executing pick and place sequence''} (0,-52);
+  \draw[fromard] (90,-63) -- node[above, font=\scriptsize, text=mcuedge] {``Step 1/15'' \dots\ ``Step 15/15''} (0,-63);
+  \draw[fromard] (90,-75) -- node[above, font=\scriptsize, text=mcuedge] {``Pick and place sequence completed''} (0,-75);
+  \node[font=\scriptsize, anchor=east, align=right, text=hostedge] at (-3,-38) {after 11 steady\\frames};
+  \node[font=\scriptsize, anchor=west, align=left, text=mcuedge] at (93,-38) {ignored, with ``No object\\detected'', unless the\\block is in place};
+  \node[font=\scriptsize, anchor=west, align=left, text=mcuedge] at (93,-63) {the arm moves,\\then goes home};
+\end{tikzpicture}

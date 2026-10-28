@@ -1,0 +1,21 @@
+% Programmed time of one pick-and-place, by block size, split into its phases,
+% computed by replaying firmware/conveyor-sorter (2026-10-29). Phase ends:
+% reach 10.08 s; grip and lift 13.68 / 13.56 / 13.36 s; set down 24.16 /
+% 24.80 / 25.32 s; back home 34.98 / 36.50 / 37.90 s.
+\begin{tikzpicture}
+  \begin{axis}[xbar stacked, width=12cm, height=4.6cm, bar width=5mm,
+      xmin=0, xmax=42, ytick=data, symbolic y coords={large,medium,small},
+      xlabel={Programmed time (s)}, enlarge y limits=0.3,
+      tick label style={font=\scriptsize}, label style={font=\footnotesize},
+      legend style={font=\scriptsize, at={(0.5,1.04)}, anchor=south, legend columns=4, draw=none},
+      nodes near coords={}, xmajorgrids, grid style={hw!80!black, very thin}]
+    \addplot[fill=mcu, draw=mcuedge] coordinates {(10.08,small) (10.08,medium) (10.08,large)};
+    \addplot[fill=ui, draw=uiedge] coordinates {(3.60,small) (3.48,medium) (3.28,large)};
+    \addplot[fill=vis, draw=visedge] coordinates {(10.48,small) (11.24,medium) (11.96,large)};
+    \addplot[fill=host, draw=hostedge] coordinates {(10.82,small) (11.70,medium) (12.58,large)};
+    \legend{reach, grip and lift, set down, return home}
+    \node[font=\scriptsize, anchor=west] at (axis cs:35.3,small) {35.0\,s};
+    \node[font=\scriptsize, anchor=west] at (axis cs:36.8,medium) {36.5\,s};
+    \node[font=\scriptsize, anchor=west] at (axis cs:38.2,large) {37.9\,s};
+  \end{axis}
+\end{tikzpicture}

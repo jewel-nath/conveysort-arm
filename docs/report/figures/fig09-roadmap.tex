@@ -1,0 +1,25 @@
+% What ConveySort-Arm showed in 2024, and open steps: the gaps found in this
+% report and the team's next step, running the ROS 2 workspace (2026-10-29).
+\begin{tikzpicture}[node distance=4mm and 8mm,
+    col/.style={font=\small\sffamily\bfseries, anchor=south},
+    item/.style={box, minimum width=46mm, text width=43mm, align=flush center,
+                 font=\scriptsize, execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000\rightskip=0pt plus 1fil\leftskip=0pt plus 1fil}}]
+  \node[col, text=hostedge] (h1) at (0,0) {Done (2024)};
+  \node[col, text=uiedge] (h2) at (55mm,0) {Open next steps};
+  \node[col, text=visedge] (h3) at (110mm,0) {Further directions};
+
+  \node[item, hostbox, below=2mm of h1] (a1) {a belt that brings each block to the arm and stops};
+  \node[item, hostbox, below=of a1] (a2) {OpenCV that sizes each block from above};
+  \node[item, hostbox, below=of a2] (a3) {an arm that picks the block and sets it down in the place for its size};
+
+  \node[item, uibox, below=2mm of h2] (b1) {the ROS 2 workspace run on the real arm};
+  \node[item, uibox, below=of b1] (b2) {sorting accuracy and cycle time measured over many blocks};
+  \node[item, uibox, below=of b2] (b3) {block size in millimetres, from a calibrated camera};
+
+  \node[item, visbox, below=2mm of h3] (c1) {motion planned with MoveIt in place of fixed sequences};
+  \node[item, visbox, below=of c1] (c2) {grasping where the camera sees the block};
+  \node[item, visbox, below=of c2] (c3) {sorting by colour and shape as well as size};
+
+  \draw[flow, hwedge] (a1.east) ++(1mm,0) -- ($(b1.west)+(-1mm,0)$);
+  \draw[flow, hwedge] (b1.east) ++(1mm,0) -- ($(c1.west)+(-1mm,0)$);
+\end{tikzpicture}
